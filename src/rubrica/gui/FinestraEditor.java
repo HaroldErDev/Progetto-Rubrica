@@ -112,10 +112,12 @@ public class FinestraEditor implements ActionListener {
 	private void setButtons() {
 		this.salvaButton = new JButton("Salva");
 		this.salvaButton.setBounds(150, 260, 193, 28);
+		this.salvaButton.setFocusable(false);
 		this.salvaButton.addActionListener(this);
 		
 		this.annullaButton = new JButton("Annulla");
 		this.annullaButton.setBounds(150, 295, 193, 28);
+		this.annullaButton.setFocusable(false);
 		this.annullaButton.addActionListener(this);
 	}
 	

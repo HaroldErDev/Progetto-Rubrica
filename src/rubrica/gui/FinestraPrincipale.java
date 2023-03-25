@@ -14,7 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import rubrica.CaricatorePersone;
@@ -58,12 +60,15 @@ public class FinestraPrincipale implements ActionListener {
 	
 	private void setButtons() {
 		this.nuovoButton = new JButton("Nuovo");
+		this.nuovoButton.setFocusable(false);
 		this.nuovoButton.addActionListener(this);
 		
 		this.modificaButton = new JButton("Modifica");
+		this.modificaButton.setFocusable(false);
 		this.modificaButton.addActionListener(this);
 		
 		this.eliminaButton = new JButton("Elimina");
+		this.eliminaButton.setFocusable(false);
 		this.eliminaButton.addActionListener(this);
 	}
 	
@@ -74,7 +79,7 @@ public class FinestraPrincipale implements ActionListener {
 		jtoolbar.add(this.nuovoButton);
 		jtoolbar.addSeparator(new Dimension(50,0));
 		jtoolbar.add(this.modificaButton);
-		jtoolbar.addSeparator(new Dimension(50,0));;
+		jtoolbar.addSeparator(new Dimension(50,0));
 		jtoolbar.add(this.eliminaButton);
 		
 		this.jframeRubrica.add(jtoolbar, BorderLayout.NORTH);
@@ -83,23 +88,33 @@ public class FinestraPrincipale implements ActionListener {
 	@SuppressWarnings("serial")
 	private void setTable() {
 		this.jtable = new JTable() {
+			// Imposta "Non Modificabile" sulle celle
 			@Override
 			public boolean isCellEditable(int col, int row) {
 				return false;
 			}
 		};
-		this.jtable.getTableHeader().setReorderingAllowed(false);
-		this.jtable.setFocusable(false);
-		this.jtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.jtable.getTableHeader().setReorderingAllowed(false); // Rimuovi il "drag and drop" delle colonne
+		this.jtable.setFocusable(false); // Rimuovi il "focus" dalle celle
+		this.jtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Imposta "una per volta" la selezione delle righe
 		
+		// Aggiungi colonne e righe alla tabella
 		DefaultTableModel defaultTable = (DefaultTableModel) this.jtable.getModel();
 		defaultTable.setColumnIdentifiers(CostantiGUI.NOMI_COLONNE);
 		for (Vector<String> personaData : this.data) defaultTable.addRow(personaData);
 		
-		JScrollPane sp = new JScrollPane(this.jtable);
-		this.jframeRubrica.add(sp);
+		// Imposta il testo delle celle centrato nella tabella
+		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+		cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		for (int col=0; col<this.jtable.getColumnCount(); col++) {
+			this.jtable.getColumnModel().getColumn(col).setCellRenderer(cellRenderer);
+		}
+		
+		// Rendi "scorrevole" (scroll-bar) la visione dei componenti della tabella
+		this.jframeRubrica.add(new JScrollPane(this.jtable));
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int row = this.jtable.getSelectedRow();
