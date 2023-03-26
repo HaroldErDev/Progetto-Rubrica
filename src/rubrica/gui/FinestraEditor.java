@@ -31,6 +31,8 @@ public class FinestraEditor implements ActionListener {
 	public FinestraEditor(FinestraPrincipale finestraPrincipale, CaricatorePersone caricatore) {
 		this.finestraPrincipale = finestraPrincipale;
 		this.caricatore = caricatore;
+		
+		setFrameEditor();
 	}
 	
 	@Override
@@ -39,7 +41,7 @@ public class FinestraEditor implements ActionListener {
 		if (e.getSource() == this.annullaButton) annullaButtonPressed();
 	}
 	
-	public void setFrameEditor() {
+	private void setFrameEditor() {
 		this.jframeEditor = new JFrame("Editor Persona");
 		this.jframeEditor.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.jframeEditor.setSize(CostantiGUI.LARGHEZZA, CostantiGUI.ALTEZZA);
@@ -72,7 +74,7 @@ public class FinestraEditor implements ActionListener {
 		this.etaLabel.setBounds(150, 196, 70, 20);
 	}
 	
-	protected void setTextFields() {
+	private void setTextFields() {
 		this.nomeTextField = new JTextField();
 		this.nomeTextField.setBounds(150, 27, 193, 28);
 		

@@ -120,9 +120,7 @@ public class FinestraPrincipale implements ActionListener {
 	}
 	
 	private void nuovoButtonPressed() {
-		FinestraEditor finestraEditor = new FinestraEditor(this, this.caricatore);
-		finestraEditor.setFrameEditor();
-		
+		new FinestraEditor(this, this.caricatore);
 		this.jtable.clearSelection();
 	}
 	
@@ -138,8 +136,7 @@ public class FinestraPrincipale implements ActionListener {
 		
 		for (Persona p : this.rubrica.getPersone()) {
 			if (p.getNome().equals(nome) && p.getCognome().equals(cognome) && p.getTelefono().equals(telefono)) {
-				FinestraEditor finestraEditorModifica = new FinestraEditorModifica(this, this.caricatore, p);
-				finestraEditorModifica.setFrameEditor();
+				new FinestraEditorModifica(this, this.caricatore, p);
 				return;
 			}
 		}

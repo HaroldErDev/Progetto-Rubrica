@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class CaricatorePersone {
 	
 	public static final String PATH = System.getProperty("user.home")+"\\Documents\\Informazioni";
+	public static final String EXTENSION = ".txt";
 	
 	private Rubrica rubrica;
 	private File info;
@@ -42,15 +43,14 @@ public class CaricatorePersone {
 		for (File file : this.info.listFiles()) file.delete();
 		
 		for (Persona persona : this.rubrica.getPersone()) {
-			String nome = persona.getNome();
-			String cognome = persona.getCognome();
+			String fileName = persona.getNome().toUpperCase()+"-"+persona.getCognome().toUpperCase();
 			
-			File newFile = new File(this.info, nome.toUpperCase()+"-"+cognome.toUpperCase()+".txt");
+			File newFile = new File(this.info, fileName+EXTENSION);
 			
 			int i = 0;
 			while (newFile.exists()) {
 				i++;
-				newFile.renameTo(new File(this.info, nome.toUpperCase()+"-"+cognome.toUpperCase()+"-"+String.valueOf(i)+".txt"));
+				newFile.renameTo(new File(this.info, fileName+"-"+String.valueOf(i)+EXTENSION));
 			}
 			
 			try {

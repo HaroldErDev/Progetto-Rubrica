@@ -1,7 +1,6 @@
 package rubrica.gui;
 
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 import rubrica.CaricatorePersone;
 import rubrica.Persona;
@@ -13,8 +12,11 @@ public class FinestraEditorModifica extends FinestraEditor {
 	
 	public FinestraEditorModifica(FinestraPrincipale finestraPrincipale, CaricatorePersone caricatore, Persona persona) {
 		super(finestraPrincipale, caricatore);
+		
 		this.finestraPrincipale = finestraPrincipale;
 		this.persona = persona;
+		
+		updateTextFields();
 	}
 	
 	@Override
@@ -39,22 +41,12 @@ public class FinestraEditorModifica extends FinestraEditor {
 		this.getJframeEditor().dispose();
 	}
 	
-	@Override
-	protected void setTextFields() {
-		this.nomeTextField = new JTextField(this.persona.getNome());
-		this.nomeTextField.setBounds(150, 27, 193, 28);
-		
-		this.cognomeTextField = new JTextField(this.persona.getCognome());
-		this.cognomeTextField.setBounds(150, 74, 193, 28);
-		
-		this.indirizzoTextField = new JTextField(this.persona.getIndirizzo());
-		this.indirizzoTextField.setBounds(150, 121, 193, 28);
-		
-		this.telefonoTextField = new JTextField(this.persona.getTelefono());
-		this.telefonoTextField.setBounds(150, 168, 193, 28);
-		
-		this.etaTextField = new JTextField(String.valueOf(this.persona.getEta()));
-		this.etaTextField.setBounds(150, 215, 193, 28);
+	private void updateTextFields() {
+		this.nomeTextField.setText(this.persona.getNome());
+		this.cognomeTextField.setText(this.persona.getCognome());
+		this.indirizzoTextField.setText(this.persona.getIndirizzo());
+		this.telefonoTextField.setText(this.persona.getTelefono());
+		this.etaTextField.setText(String.valueOf(this.persona.getEta()));
 	}
 	
 }
