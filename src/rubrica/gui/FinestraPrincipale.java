@@ -39,9 +39,12 @@ public class FinestraPrincipale implements ActionListener {
 		this.caricatore = caricatore;
 		this.rubrica = rubrica;
 		this.data = new Vector<>();
+		
+		fillData();
+		setFrameRubrica();
 	}
 	
-	public void setFrameRubrica() {
+	private void setFrameRubrica() {
 		this.jframeRubrica = new JFrame("Rubrica Telefonica");
 		this.jframeRubrica.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.jframeRubrica.setSize(CostantiGUI.LARGHEZZA, CostantiGUI.ALTEZZA);
@@ -98,7 +101,7 @@ public class FinestraPrincipale implements ActionListener {
 		this.jtable.setFocusable(false); // Rimuovi il "focus" dalle celle
 		this.jtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Imposta "una per volta" la selezione delle righe
 		
-		// Imposta il testo delle celle centrato nella tabella
+		// Imposta il testo delle celle centrato
 		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
 		cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 		

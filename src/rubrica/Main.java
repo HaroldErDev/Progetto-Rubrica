@@ -10,9 +10,7 @@ public class Main {
 		CaricatorePersone caricatore = new CaricatorePersone(rubrica);
 		caricatore.carica();
 		
-		FinestraPrincipale finestraPrincipale = new FinestraPrincipale(caricatore, rubrica);
-		finestraPrincipale.fillData();
-		finestraPrincipale.setFrameRubrica();
+		new FinestraPrincipale(caricatore, rubrica);
 	}
 
 }
