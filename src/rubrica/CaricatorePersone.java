@@ -49,8 +49,7 @@ public class CaricatorePersone {
 			
 			int i = 0;
 			while (newFile.exists()) {
-				i++;
-				newFile.renameTo(new File(this.info, fileName+"-"+String.valueOf(i)+EXTENSION));
+				newFile.renameTo(new File(this.info, fileName+"-"+String.valueOf(i++)+EXTENSION));
 			}
 			
 			try {
@@ -62,7 +61,6 @@ public class CaricatorePersone {
 			}
 			
 			printStream.print(persona.toString());
-			
 			printStream.close();
 		}
 	}

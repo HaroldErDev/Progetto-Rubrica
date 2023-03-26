@@ -129,7 +129,7 @@ public class FinestraPrincipale implements ActionListener {
 	
 	private void modificaButtonPressed(int row) {
 		if (row < 0) {
-			JOptionPane.showMessageDialog(null, "Per modificare una persona devi prima selezionarla", "ERRORE", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, CostantiGUI.MODIFICA_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
@@ -147,7 +147,7 @@ public class FinestraPrincipale implements ActionListener {
 	
 	private void eliminaButtonPressed(int row) {
 		if (row < 0) {
-			JOptionPane.showMessageDialog(null, "Per eliminare una persona devi prima selezionarla", "ERRORE", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, CostantiGUI.ELIMINA_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		

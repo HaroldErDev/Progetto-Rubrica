@@ -9,6 +9,10 @@ public interface CostantiGUI {
 	
 	public static final int ALTEZZA = 510;
 	
+	public static final String MODIFICA_ERROR_MESSAGE = "Per modificare una persona devi prima selezionarla";
+	
+	public static final String ELIMINA_ERROR_MESSAGE = "Per eliminare una persona devi prima selezionarla";
+	
 	public static final String BUTTON_NUOVO = "Nuovo";
 	
 	public static final String BUTTON_MODIFICA = "Modifica";
