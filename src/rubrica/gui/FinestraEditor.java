@@ -56,19 +56,19 @@ public class FinestraEditor implements ActionListener {
 	}
 	
 	private void setLabels() {
-		this.nomeLabel = new JLabel("Nome");
+		this.nomeLabel = new JLabel(CostantiGUI.LABEL_NOME);
 		this.nomeLabel.setBounds(150, 8, 70, 20);
 		
-		this.cognomeLabel = new JLabel("Cognome");
+		this.cognomeLabel = new JLabel(CostantiGUI.LABEL_COGNOME);
 		this.cognomeLabel.setBounds(150, 55, 70, 20);
 		
-		this.indirizzoLabel = new JLabel("Indirizzo");
+		this.indirizzoLabel = new JLabel(CostantiGUI.LABEL_INDIRIZZO);
 		this.indirizzoLabel.setBounds(150, 102, 70, 20);
 		
-		this.telefonoLabel = new JLabel("Telefono");
+		this.telefonoLabel = new JLabel(CostantiGUI.LABEL_TELEFONO);
 		this.telefonoLabel.setBounds(150, 149, 70, 20);
 		
-		this.etaLabel = new JLabel("Eta");
+		this.etaLabel = new JLabel(CostantiGUI.LABEL_ETA);
 		this.etaLabel.setBounds(150, 196, 70, 20);
 	}
 	
@@ -110,12 +110,12 @@ public class FinestraEditor implements ActionListener {
 	}
 	
 	private void setButtons() {
-		this.salvaButton = new JButton("Salva");
+		this.salvaButton = new JButton(CostantiGUI.BUTTON_SALVA);
 		this.salvaButton.setBounds(150, 260, 193, 28);
 		this.salvaButton.setFocusable(false);
 		this.salvaButton.addActionListener(this);
 		
-		this.annullaButton = new JButton("Annulla");
+		this.annullaButton = new JButton(CostantiGUI.BUTTON_ANNULLA);
 		this.annullaButton.setBounds(150, 295, 193, 28);
 		this.annullaButton.setFocusable(false);
 		this.annullaButton.addActionListener(this);

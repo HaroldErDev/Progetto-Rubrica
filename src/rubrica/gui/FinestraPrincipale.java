@@ -59,21 +59,21 @@ public class FinestraPrincipale implements ActionListener {
 	}
 	
 	private void setButtons() {
-		this.nuovoButton = new JButton("Nuovo");
+		this.nuovoButton = new JButton(CostantiGUI.BUTTON_NUOVO);
 		this.nuovoButton.setFocusable(false);
 		this.nuovoButton.addActionListener(this);
 		
-		this.modificaButton = new JButton("Modifica");
+		this.modificaButton = new JButton(CostantiGUI.BUTTON_MODIFICA);
 		this.modificaButton.setFocusable(false);
 		this.modificaButton.addActionListener(this);
 		
-		this.eliminaButton = new JButton("Elimina");
+		this.eliminaButton = new JButton(CostantiGUI.BUTTON_ELIMINA);
 		this.eliminaButton.setFocusable(false);
 		this.eliminaButton.addActionListener(this);
 	}
 	
 	private void setToolBar() {
-		JToolBar jtoolbar = new JToolBar("Comandi Rubrica");
+		JToolBar jtoolbar = new JToolBar();
 		jtoolbar.setFloatable(false);
 		
 		jtoolbar.add(this.nuovoButton);
@@ -87,7 +87,7 @@ public class FinestraPrincipale implements ActionListener {
 	
 	@SuppressWarnings("serial")
 	private void setTable() {
-		this.jtable = new JTable() {
+		this.jtable = new JTable(this.data, CostantiGUI.NOMI_COLONNE) {
 			// Imposta "Non Modificabile" sulle celle
 			@Override
 			public boolean isCellEditable(int col, int row) {
@@ -97,11 +97,6 @@ public class FinestraPrincipale implements ActionListener {
 		this.jtable.getTableHeader().setReorderingAllowed(false); // Rimuovi il "drag and drop" delle colonne
 		this.jtable.setFocusable(false); // Rimuovi il "focus" dalle celle
 		this.jtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Imposta "una per volta" la selezione delle righe
-		
-		// Aggiungi colonne e righe alla tabella
-		DefaultTableModel defaultTable = (DefaultTableModel) this.jtable.getModel();
-		defaultTable.setColumnIdentifiers(CostantiGUI.NOMI_COLONNE);
-		for (Vector<String> personaData : this.data) defaultTable.addRow(personaData);
 		
 		// Imposta il testo delle celle centrato nella tabella
 		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
@@ -143,8 +138,8 @@ public class FinestraPrincipale implements ActionListener {
 		
 		for (Persona p : this.rubrica.getPersone()) {
 			if (p.getNome().equals(nome) && p.getCognome().equals(cognome) && p.getTelefono().equals(telefono)) {
-				FinestraEditor frameEditorModifica = new FinestraEditorModifica(this, this.caricatore, p);
-				frameEditorModifica.setFrameEditor();
+				FinestraEditor finestraEditorModifica = new FinestraEditorModifica(this, this.caricatore, p);
+				finestraEditorModifica.setFrameEditor();
 				return;
 			}
 		}
