@@ -27,6 +27,16 @@ public class FinestraEditorModifica extends FinestraEditor {
 	protected void salvaButtonPressed() {
 		JTable jtable = this.finestraPrincipale.getJtable();
 		
+		String nome = this.nomeTextField.getText();
+		String cognome = this.cognomeTextField.getText();
+		String indirizzo = this.indirizzoTextField.getText();
+		String telefono = this.telefonoTextField.getText();
+		
+		if (nome.isEmpty() || cognome.isEmpty() || indirizzo.isEmpty() || telefono.isEmpty()) {
+			JOptionPane.showMessageDialog(null, CostantiGUI.EMPTYTEXT_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		int eta = 0;
 		try {
 			eta = Integer.valueOf(this.etaTextField.getText());
@@ -35,10 +45,10 @@ public class FinestraEditorModifica extends FinestraEditor {
 			return;
 		}
 		
-		this.persona.setNome(this.nomeTextField.getText());
-		this.persona.setCognome(this.cognomeTextField.getText());
-		this.persona.setIndirizzo(this.indirizzoTextField.getText());
-		this.persona.setTelefono(this.telefonoTextField.getText());
+		this.persona.setNome(nome);
+		this.persona.setCognome(cognome);
+		this.persona.setIndirizzo(indirizzo);
+		this.persona.setTelefono(telefono);
 		this.persona.setEta(eta);
 		
 		this.rubricaDataBase.updatePersona(this.persona);

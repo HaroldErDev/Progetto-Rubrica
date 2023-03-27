@@ -132,7 +132,17 @@ public class FinestraEditor implements ActionListener {
 	protected void salvaButtonPressed() {
 		JTable jtable = this.finestraPrincipale.getJtable();
 		
-		int eta = 0;
+		String nome = this.nomeTextField.getText();
+		String cognome = this.cognomeTextField.getText();
+		String indirizzo = this.indirizzoTextField.getText();
+		String telefono = this.telefonoTextField.getText();
+		
+		if (nome.isEmpty() || cognome.isEmpty() || indirizzo.isEmpty() || telefono.isEmpty()) {
+			JOptionPane.showMessageDialog(null, CostantiGUI.EMPTYTEXT_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		int eta = -1;
 		try {
 			eta = Integer.valueOf(this.etaTextField.getText());
 		} catch (NumberFormatException e) {
@@ -140,8 +150,7 @@ public class FinestraEditor implements ActionListener {
 			return;
 		}
 		
-		Persona persona = new Persona(this.nomeTextField.getText(), this.cognomeTextField.getText(), 
-									  this.indirizzoTextField.getText(), this.telefonoTextField.getText(), eta);
+		Persona persona = new Persona(nome, cognome, indirizzo, telefono, eta);
 		
 		this.rubricaDataBase.insertPersona(persona);
 		
