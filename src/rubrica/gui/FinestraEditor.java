@@ -137,8 +137,13 @@ public class FinestraEditor implements ActionListener {
 		String indirizzo = this.indirizzoTextField.getText();
 		String telefono = this.telefonoTextField.getText();
 		
+		if (this.rubricaDataBase.getPersona(nome, cognome, telefono) != null) {
+			JOptionPane.showMessageDialog(null, CostantiGUI.PERSONA_EXISTS_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		if (nome.isEmpty() || cognome.isEmpty() || indirizzo.isEmpty() || telefono.isEmpty()) {
-			JOptionPane.showMessageDialog(null, CostantiGUI.EMPTYTEXT_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, CostantiGUI.EMPTY_TEXT_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		

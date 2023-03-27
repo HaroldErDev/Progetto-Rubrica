@@ -17,7 +17,9 @@ public interface CostantiGUI {
 	
 	public static final String INTEGER_ERROR_MESSAGE = "'Eta' deve essere un numero intero";
 	
-	public static final String EMPTYTEXT_ERROR_MESSAGE = "Non si possono lasciare caselle vuote";
+	public static final String EMPTY_TEXT_ERROR_MESSAGE = "Non si possono lasciare caselle vuote";
+	
+	public static final String PERSONA_EXISTS_ERROR_MESSAGE = "Una persona con questo nome, cognome e telefono già esiste";
 	
 	public static final String BUTTON_LOGIN = "LOGIN";
 	
