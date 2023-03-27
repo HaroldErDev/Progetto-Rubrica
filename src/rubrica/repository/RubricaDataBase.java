@@ -5,32 +5,49 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Vector;
+
+import javax.swing.JOptionPane;
 
 import rubrica.Persona;
-import rubrica.Rubrica;
+import rubrica.Utente;
 
 public class RubricaDataBase {
 	
-	private String url = PropertiesReader.getURL();
-	private String username = PropertiesReader.getUsername();
-	private String password = PropertiesReader.getPassword();
-	
-	private Rubrica rubrica;
-	
 	private Connection connection;
 	
-	public RubricaDataBase(Rubrica rubrica) {
-		this.rubrica = rubrica;
-		
+	public RubricaDataBase() {
+		PropertiesReader propReader = new PropertiesReader();
 		try {
-			// Effettua la connesione con il Data Base
-			this.connection = DriverManager.getConnection(url, username, password);
+			// Effettua la connessione con il Data Base
+			this.connection = DriverManager.getConnection(propReader.getURL(), propReader.getUsername(), propReader.getPassword());
 		} catch(Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			System.exit(1);
 		}
 	}
 	
-	public void load() {
+	public boolean exists(Utente utente) {
+		String query = "SELECT 1 FROM utente WHERE username=? AND password=?";
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, utente.getUsername());
+			statement.setString(2, utente.getPassword());
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if (resultSet.next()) return true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return false;
+		}
+		
+		return false;
+	}
+	
+	public Vector<Persona> getAllPersone() {
+		Vector<Persona> persone = new Vector<>();
 		String query = "SELECT * FROM persona";
 		
 		try {
@@ -42,12 +59,39 @@ public class RubricaDataBase {
 											  resultSet.getString(5), resultSet.getInt(6));
 				persona.setId(resultSet.getInt(1));
 				
-				this.rubrica.addPersona(persona);
+				persone.add(persona);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			return;
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			System.exit(1);
 		}
+		
+		return persone;
+	}
+	
+	public Persona getPersona(String nome, String cognome, String telefono) {
+		String query = "SELECT * FROM persona WHERE nome=? AND cognome=? AND telefono=?";
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setString(1, nome);
+			statement.setString(2, cognome);
+			statement.setString(3, telefono);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			if (resultSet.next()) {
+				Persona persona = new Persona(resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), 
+						  					  resultSet.getString(5), resultSet.getInt(6));
+				persona.setId(resultSet.getInt(1));
+				
+				return persona;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		return null;
 	}
 	
 	public void insert(Persona persona) {
@@ -68,7 +112,8 @@ public class RubricaDataBase {
 				persona.setId(generatedKeys.getInt(1));
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return;
 		}
 	}
 	
@@ -86,7 +131,8 @@ public class RubricaDataBase {
 			
 			statement.executeUpdate();
 		} catch(Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return;
 		}
 	}
 	
@@ -96,7 +142,8 @@ public class RubricaDataBase {
 		try {
 			connection.prepareStatement(query).executeUpdate();
 		} catch(Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return;
 		}
 	}
 	

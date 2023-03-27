@@ -20,14 +20,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import rubrica.Persona;
-import rubrica.Rubrica;
 import rubrica.costanti.CostantiGUI;
 import rubrica.repository.RubricaDataBase;
 
 public class FinestraPrincipale implements ActionListener {
 	
 	private RubricaDataBase rubricaDataBase;
-	private Rubrica rubrica;
 	
 	private Vector<Vector<String>> data;
 	
@@ -35,9 +33,8 @@ public class FinestraPrincipale implements ActionListener {
 	private JTable jtable;
 	private JButton nuovoButton, modificaButton, eliminaButton;
 	
-	public FinestraPrincipale(RubricaDataBase rubricaDataBase, Rubrica rubrica) {
+	public FinestraPrincipale(RubricaDataBase rubricaDataBase) {
 		this.rubricaDataBase = rubricaDataBase;
-		this.rubrica = rubrica;
 		this.data = new Vector<>();
 		
 		fillData();
@@ -137,7 +134,14 @@ public class FinestraPrincipale implements ActionListener {
 		String cognome = (String) this.jtable.getValueAt(row, 1);
 		String telefono = (String) this.jtable.getValueAt(row, 2);
 		
-		new FinestraEditorModifica(this, this.rubricaDataBase, getPersonaFromTable(nome, cognome, telefono));
+		Persona persona = this.rubricaDataBase.getPersona(nome, cognome, telefono);
+		
+		if (persona == null) {
+			JOptionPane.showMessageDialog(null, "Impossibile trovare la persona selezionata", "ERRORE", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		new FinestraEditorModifica(this, this.rubricaDataBase, persona);
 	}
 	
 	private void eliminaButtonPressed(int row) {
@@ -153,29 +157,26 @@ public class FinestraPrincipale implements ActionListener {
 		int option = JOptionPane.showConfirmDialog(null, "Eliminare la persona "+nome.toUpperCase()+" "+cognome.toUpperCase()+"?", 
 												   "Elimina Persona", JOptionPane.YES_NO_OPTION);
 		
+		// (0 = "YES"; 1 = "NO")
 		if (option == 0) {
-			this.rubricaDataBase.delete(getPersonaFromTable(nome, cognome, telefono));
+			Persona persona = this.rubricaDataBase.getPersona(nome, cognome, telefono);
+			
+			if (persona == null) {
+				JOptionPane.showMessageDialog(null, "Impossibile trovare la persona selezionata", "ERRORE", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			this.rubricaDataBase.delete(persona);
 			
 			DefaultTableModel defaultTableModel = (DefaultTableModel) this.jtable.getModel();
 			defaultTableModel.removeRow(row);
-			this.rubrica.getPersone().remove(row);
 		}
 		
 		this.jtable.clearSelection();
 	}
 	
-	private Persona getPersonaFromTable(String nome, String cognome, String telefono) {
-		for (Persona p : this.rubrica.getPersone()) {
-			if (p.getNome().equals(nome) && p.getCognome().equals(cognome) && p.getTelefono().equals(telefono)) {
-				return p;
-			}
-		}
-		
-		return null;
-	}
-	
 	public void fillData() {
-		for (Persona persona : this.rubrica.getPersone()) {
+		for (Persona persona : this.rubricaDataBase.getAllPersone()) {
 			Vector<String> newData = new Vector<>();
 			newData.add(persona.getNome());
 			newData.add(persona.getCognome());
@@ -199,14 +200,6 @@ public class FinestraPrincipale implements ActionListener {
 
 	public void setJtable(JTable jtable) {
 		this.jtable = jtable;
-	}
-
-	public Rubrica getRubrica() {
-		return rubrica;
-	}
-
-	public void setRubrica(Rubrica rubrica) {
-		this.rubrica = rubrica;
 	}
 	
 }

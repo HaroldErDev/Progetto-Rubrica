@@ -1,5 +1,6 @@
 package rubrica.gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -91,6 +92,22 @@ public class FinestraEditor implements ActionListener {
 		this.etaTextField.setBounds(150, 215, 193, 28);
 	}
 	
+	private void setButtons() {
+		this.salvaButton = new JButton(CostantiGUI.BUTTON_SALVA);
+		this.salvaButton.setBounds(150, 260, 193, 28);
+		this.salvaButton.setForeground(Color.WHITE);
+		this.salvaButton.setBackground(Color.BLACK);
+		this.salvaButton.setFocusable(false);
+		this.salvaButton.addActionListener(this);
+		
+		this.annullaButton = new JButton(CostantiGUI.BUTTON_ANNULLA);
+		this.annullaButton.setBounds(150, 295, 193, 28);
+		this.annullaButton.setForeground(Color.WHITE);
+		this.annullaButton.setBackground(Color.BLACK);
+		this.annullaButton.setFocusable(false);
+		this.annullaButton.addActionListener(this);
+	}
+	
 	private void setPanel() {
 		this.jpanel = new JPanel();
 		this.jpanel.setLayout(null);
@@ -111,18 +128,6 @@ public class FinestraEditor implements ActionListener {
 		this.jpanel.add(this.annullaButton);
 	}
 	
-	private void setButtons() {
-		this.salvaButton = new JButton(CostantiGUI.BUTTON_SALVA);
-		this.salvaButton.setBounds(150, 260, 193, 28);
-		this.salvaButton.setFocusable(false);
-		this.salvaButton.addActionListener(this);
-		
-		this.annullaButton = new JButton(CostantiGUI.BUTTON_ANNULLA);
-		this.annullaButton.setBounds(150, 295, 193, 28);
-		this.annullaButton.setFocusable(false);
-		this.annullaButton.addActionListener(this);
-	}
-	
 	protected void salvaButtonPressed() {
 		JTable jtable = this.finestraPrincipale.getJtable();
 		
@@ -139,8 +144,6 @@ public class FinestraEditor implements ActionListener {
 		
 		DefaultTableModel defaultTableModel = (DefaultTableModel) jtable.getModel();
 		defaultTableModel.addRow(newData);
-		
-		this.finestraPrincipale.getRubrica().addPersona(persona);
 		
 		jtable.clearSelection();
 		

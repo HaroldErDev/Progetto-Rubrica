@@ -1,23 +1,14 @@
 package rubrica;
 
-import rubrica.gui.FinestraPrincipale;
-import rubrica.repository.PropertiesReader;
+import rubrica.gui.FinestraLogin;
 import rubrica.repository.RubricaDataBase;
 
 public class Main {
 
 	public static void main(String[] args) {
-		new PropertiesReader(true);
+		RubricaDataBase rubricaDataBase = new RubricaDataBase();
 		
-		Rubrica rubrica = new Rubrica();
-		
-		RubricaDataBase rubricaDataBase = new RubricaDataBase(rubrica);
-		rubricaDataBase.load();
-		
-		//CaricatorePersone caricatore = new CaricatorePersone(rubrica);
-		//caricatore.carica();
-		
-		new FinestraPrincipale(rubricaDataBase, rubrica);
+		new FinestraLogin(rubricaDataBase);
 	}
 
 }

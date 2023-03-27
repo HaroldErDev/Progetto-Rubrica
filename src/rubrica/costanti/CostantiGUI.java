@@ -9,9 +9,13 @@ public interface CostantiGUI {
 	
 	public static final int ALTEZZA = 510;
 	
+	public static final String LOGIN_ERROR_MESSAGE = "Le credenziali inserite non sono corrette";
+	
 	public static final String MODIFICA_ERROR_MESSAGE = "Per modificare una persona devi prima selezionarla";
 	
 	public static final String ELIMINA_ERROR_MESSAGE = "Per eliminare una persona devi prima selezionarla";
+	
+	public static final String BUTTON_LOGIN = "LOGIN";
 	
 	public static final String BUTTON_NUOVO = "Nuovo";
 	
@@ -22,6 +26,10 @@ public interface CostantiGUI {
 	public static final String BUTTON_SALVA = "Salva";
 	
 	public static final String BUTTON_ANNULLA = "Annulla";
+	
+	public static final String LABEL_USERNAME = "Username";
+	
+	public static final String LABEL_PASSWORD = "Password";
 	
 	public static final String LABEL_NOME = "Nome";
 	
