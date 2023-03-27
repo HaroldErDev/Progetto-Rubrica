@@ -19,14 +19,14 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import rubrica.CaricatorePersone;
 import rubrica.Persona;
 import rubrica.Rubrica;
 import rubrica.costanti.CostantiGUI;
+import rubrica.repository.RubricaDataBase;
 
 public class FinestraPrincipale implements ActionListener {
 	
-	private CaricatorePersone caricatore;
+	private RubricaDataBase rubricaDataBase;
 	private Rubrica rubrica;
 	
 	private Vector<Vector<String>> data;
@@ -35,8 +35,8 @@ public class FinestraPrincipale implements ActionListener {
 	private JTable jtable;
 	private JButton nuovoButton, modificaButton, eliminaButton;
 	
-	public FinestraPrincipale(CaricatorePersone caricatore, Rubrica rubrica) {
-		this.caricatore = caricatore;
+	public FinestraPrincipale(RubricaDataBase rubricaDataBase, Rubrica rubrica) {
+		this.rubricaDataBase = rubricaDataBase;
 		this.rubrica = rubrica;
 		this.data = new Vector<>();
 		
@@ -123,7 +123,7 @@ public class FinestraPrincipale implements ActionListener {
 	}
 	
 	private void nuovoButtonPressed() {
-		new FinestraEditor(this, this.caricatore);
+		new FinestraEditor(this, this.rubricaDataBase);
 		this.jtable.clearSelection();
 	}
 	
@@ -137,12 +137,7 @@ public class FinestraPrincipale implements ActionListener {
 		String cognome = (String) this.jtable.getValueAt(row, 1);
 		String telefono = (String) this.jtable.getValueAt(row, 2);
 		
-		for (Persona p : this.rubrica.getPersone()) {
-			if (p.getNome().equals(nome) && p.getCognome().equals(cognome) && p.getTelefono().equals(telefono)) {
-				new FinestraEditorModifica(this, this.caricatore, p);
-				return;
-			}
-		}
+		new FinestraEditorModifica(this, this.rubricaDataBase, getPersonaFromTable(nome, cognome, telefono));
 	}
 	
 	private void eliminaButtonPressed(int row) {
@@ -153,19 +148,30 @@ public class FinestraPrincipale implements ActionListener {
 		
 		String nome = (String) this.jtable.getValueAt(row, 0);
 		String cognome = (String) this.jtable.getValueAt(row, 1);
+		String telefono = (String) this.jtable.getValueAt(row, 2);
 		
 		int option = JOptionPane.showConfirmDialog(null, "Eliminare la persona "+nome.toUpperCase()+" "+cognome.toUpperCase()+"?", 
 												   "Elimina Persona", JOptionPane.YES_NO_OPTION);
 		
 		if (option == 0) {
+			this.rubricaDataBase.delete(getPersonaFromTable(nome, cognome, telefono));
+			
 			DefaultTableModel defaultTableModel = (DefaultTableModel) this.jtable.getModel();
 			defaultTableModel.removeRow(row);
 			this.rubrica.getPersone().remove(row);
-			
-			this.caricatore.salva();
 		}
 		
 		this.jtable.clearSelection();
+	}
+	
+	private Persona getPersonaFromTable(String nome, String cognome, String telefono) {
+		for (Persona p : this.rubrica.getPersone()) {
+			if (p.getNome().equals(nome) && p.getCognome().equals(cognome) && p.getTelefono().equals(telefono)) {
+				return p;
+			}
+		}
+		
+		return null;
 	}
 	
 	public void fillData() {

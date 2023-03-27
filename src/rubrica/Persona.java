@@ -4,6 +4,7 @@ public class Persona {
 	
 	private static final String SEMICOLON = ";";
 	
+	private int id;
 	private String nome;
 	private String cognome;
 	private String indirizzo;
@@ -18,6 +19,14 @@ public class Persona {
 		this.eta = eta;
 	}
 	
+	public int getId() {
+		return this.id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}

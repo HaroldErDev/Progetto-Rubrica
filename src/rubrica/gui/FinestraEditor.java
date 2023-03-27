@@ -13,14 +13,14 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-import rubrica.CaricatorePersone;
 import rubrica.Persona;
 import rubrica.costanti.CostantiGUI;
+import rubrica.repository.RubricaDataBase;
 
 public class FinestraEditor implements ActionListener {
 	
 	private FinestraPrincipale finestraPrincipale;
-	private CaricatorePersone caricatore;
+	private RubricaDataBase rubricaDataBase;
 	
 	private JPanel jpanel;
 	private JFrame jframeEditor;
@@ -28,9 +28,9 @@ public class FinestraEditor implements ActionListener {
 	protected JTextField nomeTextField, cognomeTextField, indirizzoTextField, telefonoTextField, etaTextField;
 	private JButton salvaButton, annullaButton;
 	
-	public FinestraEditor(FinestraPrincipale finestraPrincipale, CaricatorePersone caricatore) {
+	public FinestraEditor(FinestraPrincipale finestraPrincipale, RubricaDataBase rubricaDataBase) {
 		this.finestraPrincipale = finestraPrincipale;
-		this.caricatore = caricatore;
+		this.rubricaDataBase = rubricaDataBase;
 		
 		setFrameEditor();
 	}
@@ -126,8 +126,11 @@ public class FinestraEditor implements ActionListener {
 	protected void salvaButtonPressed() {
 		JTable jtable = this.finestraPrincipale.getJtable();
 		
-		Persona persona = new Persona(this.nomeTextField.getText(), this.cognomeTextField.getText(), this.indirizzoTextField.getText(),
-									  this.telefonoTextField.getText(), Integer.valueOf(this.etaTextField.getText()));
+		Persona persona = new Persona(this.nomeTextField.getText(), this.cognomeTextField.getText(), 
+									  this.indirizzoTextField.getText(), this.telefonoTextField.getText(), 
+									  Integer.valueOf(this.etaTextField.getText()));
+		
+		this.rubricaDataBase.insert(persona);
 		
 		Vector<String> newData = new Vector<>();
 		newData.add(persona.getNome());
@@ -139,19 +142,19 @@ public class FinestraEditor implements ActionListener {
 		
 		this.finestraPrincipale.getRubrica().addPersona(persona);
 		
-		salvaDati();
-		
 		jtable.clearSelection();
-		this.jframeEditor.dispose();
+		
+		closeFrameEditor();
 	}
 	
 	private void annullaButtonPressed() {
 		this.finestraPrincipale.getJtable().clearSelection();
-		this.jframeEditor.dispose();
+		
+		closeFrameEditor();
 	}
 	
-	protected void salvaDati() {
-		this.caricatore.salva();
+	protected void closeFrameEditor() {
+		this.jframeEditor.dispose();
 	}
 	
 	public FinestraPrincipale getFinestraPrincipale() {

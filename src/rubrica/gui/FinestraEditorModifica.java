@@ -2,18 +2,20 @@ package rubrica.gui;
 
 import javax.swing.JTable;
 
-import rubrica.CaricatorePersone;
 import rubrica.Persona;
+import rubrica.repository.RubricaDataBase;
 
 public class FinestraEditorModifica extends FinestraEditor {
 	
 	private FinestraPrincipale finestraPrincipale;
+	private RubricaDataBase rubricaDataBase;
 	private Persona persona;
 	
-	public FinestraEditorModifica(FinestraPrincipale finestraPrincipale, CaricatorePersone caricatore, Persona persona) {
-		super(finestraPrincipale, caricatore);
+	public FinestraEditorModifica(FinestraPrincipale finestraPrincipale, RubricaDataBase rubricaDataBase, Persona persona) {
+		super(finestraPrincipale, rubricaDataBase);
 		
 		this.finestraPrincipale = finestraPrincipale;
+		this.rubricaDataBase = rubricaDataBase;
 		this.persona = persona;
 		
 		updateTextFields();
@@ -29,16 +31,17 @@ public class FinestraEditorModifica extends FinestraEditor {
 		this.persona.setTelefono(this.telefonoTextField.getText());
 		this.persona.setEta(Integer.valueOf(this.etaTextField.getText()));
 		
+		this.rubricaDataBase.update(this.persona);
+		
 		int row = jtable.getSelectedRow();
 		
 		jtable.setValueAt(this.persona.getNome(), row, 0);
 		jtable.setValueAt(this.persona.getCognome(), row, 1);
 		jtable.setValueAt(this.persona.getTelefono(), row, 2);
 		
-		salvaDati();
-		
 		jtable.clearSelection();
-		this.getJframeEditor().dispose();
+		
+		this.closeFrameEditor();
 	}
 	
 	private void updateTextFields() {

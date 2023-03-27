@@ -1,9 +1,12 @@
-package rubrica;
+package rubrica.repository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
+
+import rubrica.Persona;
+import rubrica.Rubrica;
 
 public class CaricatorePersone {
 	
