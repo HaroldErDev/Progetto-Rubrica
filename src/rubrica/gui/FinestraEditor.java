@@ -45,8 +45,8 @@ public class FinestraEditor implements ActionListener {
 	private void setFrameEditor() {
 		this.jframeEditor = new JFrame("Editor Persona");
 		this.jframeEditor.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		this.jframeEditor.setSize(CostantiGUI.LARGHEZZA, CostantiGUI.ALTEZZA);
-		this.jframeEditor.setLocation(750, 300);
+		this.jframeEditor.setSize(400, 385);
+		this.jframeEditor.setLocation(760, 370);
 		this.jframeEditor.setResizable(false);
 		
 		setLabels();
@@ -60,48 +60,48 @@ public class FinestraEditor implements ActionListener {
 	
 	private void setLabels() {
 		this.nomeLabel = new JLabel(CostantiGUI.LABEL_NOME);
-		this.nomeLabel.setBounds(150, 8, 70, 20);
+		this.nomeLabel.setBounds(100, 8, 70, 20);
 		
 		this.cognomeLabel = new JLabel(CostantiGUI.LABEL_COGNOME);
-		this.cognomeLabel.setBounds(150, 55, 70, 20);
+		this.cognomeLabel.setBounds(100, 55, 70, 20);
 		
 		this.indirizzoLabel = new JLabel(CostantiGUI.LABEL_INDIRIZZO);
-		this.indirizzoLabel.setBounds(150, 102, 70, 20);
+		this.indirizzoLabel.setBounds(100, 102, 70, 20);
 		
 		this.telefonoLabel = new JLabel(CostantiGUI.LABEL_TELEFONO);
-		this.telefonoLabel.setBounds(150, 149, 70, 20);
+		this.telefonoLabel.setBounds(100, 149, 70, 20);
 		
 		this.etaLabel = new JLabel(CostantiGUI.LABEL_ETA);
-		this.etaLabel.setBounds(150, 196, 70, 20);
+		this.etaLabel.setBounds(100, 196, 70, 20);
 	}
 	
 	private void setTextFields() {
 		this.nomeTextField = new JTextField();
-		this.nomeTextField.setBounds(150, 27, 193, 28);
+		this.nomeTextField.setBounds(100, 27, 193, 28);
 		
 		this.cognomeTextField = new JTextField();
-		this.cognomeTextField.setBounds(150, 74, 193, 28);
+		this.cognomeTextField.setBounds(100, 74, 193, 28);
 		
 		this.indirizzoTextField = new JTextField();
-		this.indirizzoTextField.setBounds(150, 121, 193, 28);
+		this.indirizzoTextField.setBounds(100, 121, 193, 28);
 		
 		this.telefonoTextField = new JTextField();
-		this.telefonoTextField.setBounds(150, 168, 193, 28);
+		this.telefonoTextField.setBounds(100, 168, 193, 28);
 		
 		this.etaTextField = new JTextField();
-		this.etaTextField.setBounds(150, 215, 193, 28);
+		this.etaTextField.setBounds(100, 215, 193, 28);
 	}
 	
 	private void setButtons() {
 		this.salvaButton = new JButton(CostantiGUI.BUTTON_SALVA);
-		this.salvaButton.setBounds(150, 260, 193, 28);
+		this.salvaButton.setBounds(100, 260, 193, 28);
 		this.salvaButton.setForeground(Color.WHITE);
 		this.salvaButton.setBackground(Color.BLACK);
 		this.salvaButton.setFocusable(false);
 		this.salvaButton.addActionListener(this);
 		
 		this.annullaButton = new JButton(CostantiGUI.BUTTON_ANNULLA);
-		this.annullaButton.setBounds(150, 295, 193, 28);
+		this.annullaButton.setBounds(100, 295, 193, 28);
 		this.annullaButton.setForeground(Color.WHITE);
 		this.annullaButton.setBackground(Color.BLACK);
 		this.annullaButton.setFocusable(false);
@@ -135,7 +135,7 @@ public class FinestraEditor implements ActionListener {
 									  this.indirizzoTextField.getText(), this.telefonoTextField.getText(), 
 									  Integer.valueOf(this.etaTextField.getText()));
 		
-		this.rubricaDataBase.insert(persona);
+		this.rubricaDataBase.insertPersona(persona);
 		
 		Vector<String> newData = new Vector<>();
 		newData.add(persona.getNome());

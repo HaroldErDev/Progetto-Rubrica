@@ -27,8 +27,8 @@ public class RubricaDataBase {
 		}
 	}
 	
-	public boolean exists(Utente utente) {
-		String query = "SELECT 1 FROM utente WHERE username=? AND password=?";
+	public boolean existsUtente(Utente utente) {
+		String query = "SELECT * FROM utente WHERE username=? AND password=? LIMIT 1";
 		
 		try {
 			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -70,7 +70,7 @@ public class RubricaDataBase {
 	}
 	
 	public Persona getPersona(String nome, String cognome, String telefono) {
-		String query = "SELECT * FROM persona WHERE nome=? AND cognome=? AND telefono=?";
+		String query = "SELECT * FROM persona WHERE nome=? AND cognome=? AND telefono=? LIMIT 1";
 		
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -89,12 +89,13 @@ public class RubricaDataBase {
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
+			return null;
 		}
 		
 		return null;
 	}
 	
-	public void insert(Persona persona) {
+	public void insertPersona(Persona persona) {
 		String query = "INSERT INTO persona(nome,cognome,indirizzo,telefono,eta) VALUES(?,?,?,?,?)";
 		
 		try {
@@ -117,7 +118,7 @@ public class RubricaDataBase {
 		}
 	}
 	
-	public void update(Persona persona) {
+	public void updatePersona(Persona persona) {
 		String query = "UPDATE persona SET nome=?, cognome=?, indirizzo=?, telefono=?, eta=? WHERE id=?";
 		
 		try {
@@ -136,7 +137,7 @@ public class RubricaDataBase {
 		}
 	}
 	
-	public void delete(Persona persona) {
+	public void deletePersona(Persona persona) {
 		String query = "DELETE FROM persona WHERE id="+persona.getId();
 		
 		try {

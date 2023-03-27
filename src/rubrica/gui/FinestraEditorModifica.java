@@ -31,7 +31,7 @@ public class FinestraEditorModifica extends FinestraEditor {
 		this.persona.setTelefono(this.telefonoTextField.getText());
 		this.persona.setEta(Integer.valueOf(this.etaTextField.getText()));
 		
-		this.rubricaDataBase.update(this.persona);
+		this.rubricaDataBase.updatePersona(this.persona);
 		
 		int row = jtable.getSelectedRow();
 		

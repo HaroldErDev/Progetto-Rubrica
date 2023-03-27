@@ -37,7 +37,7 @@ public class FinestraLogin implements ActionListener {
 		this.jframeLogin = new JFrame("LOGIN");
 		this.jframeLogin.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.jframeLogin.setSize(400, 210);
-		this.jframeLogin.setLocation(750, 400);
+		this.jframeLogin.setLocation(760, 410);
 		this.jframeLogin.setResizable(false);
 		
 		setLabels();
@@ -91,7 +91,7 @@ public class FinestraLogin implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Utente utente = new Utente(this.usernameTextField.getText(), this.passwordTextField.getText());
 		
-		if (this.rubricaDataBase.exists(utente)) {
+		if (this.rubricaDataBase.existsUtente(utente)) {
 			this.jframeLogin.dispose();
 			new FinestraPrincipale(this.rubricaDataBase);
 		} else {

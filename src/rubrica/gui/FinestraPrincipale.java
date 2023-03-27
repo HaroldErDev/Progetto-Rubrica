@@ -45,7 +45,7 @@ public class FinestraPrincipale implements ActionListener {
 		this.jframeRubrica = new JFrame("Rubrica Telefonica");
 		this.jframeRubrica.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.jframeRubrica.setSize(CostantiGUI.LARGHEZZA, CostantiGUI.ALTEZZA);
-		this.jframeRubrica.setLocation(750, 300);
+		this.jframeRubrica.setLocation(710, 300);
 		this.jframeRubrica.setResizable(false);
 		
 		FlowLayout flow = new FlowLayout(FlowLayout.CENTER);
@@ -166,7 +166,7 @@ public class FinestraPrincipale implements ActionListener {
 				return;
 			}
 			
-			this.rubricaDataBase.delete(persona);
+			this.rubricaDataBase.deletePersona(persona);
 			
 			DefaultTableModel defaultTableModel = (DefaultTableModel) this.jtable.getModel();
 			defaultTableModel.removeRow(row);
