@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -131,9 +132,16 @@ public class FinestraEditor implements ActionListener {
 	protected void salvaButtonPressed() {
 		JTable jtable = this.finestraPrincipale.getJtable();
 		
+		int eta = 0;
+		try {
+			eta = Integer.valueOf(this.etaTextField.getText());
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, CostantiGUI.INTEGER_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		Persona persona = new Persona(this.nomeTextField.getText(), this.cognomeTextField.getText(), 
-									  this.indirizzoTextField.getText(), this.telefonoTextField.getText(), 
-									  Integer.valueOf(this.etaTextField.getText()));
+									  this.indirizzoTextField.getText(), this.telefonoTextField.getText(), eta);
 		
 		this.rubricaDataBase.insertPersona(persona);
 		

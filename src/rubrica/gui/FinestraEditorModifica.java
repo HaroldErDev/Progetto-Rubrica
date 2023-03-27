@@ -1,8 +1,10 @@
 package rubrica.gui;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import rubrica.Persona;
+import rubrica.costanti.CostantiGUI;
 import rubrica.repository.RubricaDataBase;
 
 public class FinestraEditorModifica extends FinestraEditor {
@@ -25,11 +27,19 @@ public class FinestraEditorModifica extends FinestraEditor {
 	protected void salvaButtonPressed() {
 		JTable jtable = this.finestraPrincipale.getJtable();
 		
+		int eta = 0;
+		try {
+			eta = Integer.valueOf(this.etaTextField.getText());
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, CostantiGUI.INTEGER_ERROR_MESSAGE, "ERRORE", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		this.persona.setNome(this.nomeTextField.getText());
 		this.persona.setCognome(this.cognomeTextField.getText());
 		this.persona.setIndirizzo(this.indirizzoTextField.getText());
 		this.persona.setTelefono(this.telefonoTextField.getText());
-		this.persona.setEta(Integer.valueOf(this.etaTextField.getText()));
+		this.persona.setEta(eta);
 		
 		this.rubricaDataBase.updatePersona(this.persona);
 		

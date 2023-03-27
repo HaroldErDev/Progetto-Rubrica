@@ -15,6 +15,8 @@ public interface CostantiGUI {
 	
 	public static final String ELIMINA_ERROR_MESSAGE = "Per eliminare una persona devi prima selezionarla";
 	
+	public static final String INTEGER_ERROR_MESSAGE = "'Eta' deve essere un numero intero";
+	
 	public static final String BUTTON_LOGIN = "LOGIN";
 	
 	public static final String BUTTON_NUOVO = "Nuovo";
