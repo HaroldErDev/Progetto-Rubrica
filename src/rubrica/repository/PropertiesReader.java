@@ -17,10 +17,10 @@ public class PropertiesReader {
 		
 		try {
 			// Leggi le proprietà dal file presente nella stessa directory del .jar file
-			/*this.properties.load(new FileInputStream(PROPERTIES));*/
+			this.properties.load(new FileInputStream(PROPERTIES));
 			
 			// Leggi le proprietà dal file presente nel classpath
-			this.properties.load(this.getClass().getClassLoader().getResourceAsStream(PROPERTIES));
+			/*this.properties.load(this.getClass().getClassLoader().getResourceAsStream(PROPERTIES));*/
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.exit(1);
