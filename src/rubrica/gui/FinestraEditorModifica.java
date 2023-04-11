@@ -37,7 +37,7 @@ public class FinestraEditorModifica extends FinestraEditor {
 			return;
 		}
 		
-		int eta = 0;
+		int eta = -1;
 		try {
 			eta = Integer.valueOf(this.etaTextField.getText());
 		} catch (NumberFormatException e) {
